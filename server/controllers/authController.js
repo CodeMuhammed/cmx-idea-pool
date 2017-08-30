@@ -69,8 +69,12 @@ const refreshToken = (req, res) => {
     RefreshToken.findOne({token: req.body.refresh_token}, (err, tokenObj) => {
         if (err) return res.status(500).send(err);
         else {
-            const accessToken = authHelper.generateAccessToken(tokenObj.userEmail);
-            res.status(200).send({ jwt: accessToken });
+            if (tokenObj) {
+                const accessToken = authHelper.generateAccessToken(tokenObj.userEmail);
+                res.status(200).send({ jwt: accessToken });
+            } else {
+                res.status(404).send({ msg: 'not found' });
+            }
         }
     });
 }

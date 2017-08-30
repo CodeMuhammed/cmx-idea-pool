@@ -14,3 +14,6 @@ const server = http.createServer(expressApp);
 server.listen(port, () => {
     console.log(`Server listening on port: ${port}`);
 });
+
+// for testing purposes only
+module.exports = expressApp;

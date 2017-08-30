@@ -10,6 +10,7 @@ module.exports = {
     ],
     "extends": "standard",
     "rules": {
+        "no-unused-expressions": "off",
        "no-undef": "off",
        "arrow-body-style": "off",
        "no-unused-vars": "off",

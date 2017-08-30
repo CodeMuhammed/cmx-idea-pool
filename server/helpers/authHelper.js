@@ -25,7 +25,7 @@ const refreshAccessToken = (refreshToken) => {
 }
 
 const generateAccessToken = (email) => {
-    const secret = process.env.jwt_secret;
+    const secret = process.env.jwt_secret_dev;
     return jwt.sign(
         { userEmail: email },
         secret,

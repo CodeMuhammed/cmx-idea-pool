@@ -5,7 +5,7 @@ const authMiddleware = require('../middlewares/auth');
 const router = new express.Router();
 
 router.route('/')
-   .post(userActions.createUser);
+    .post(userActions.createUser);
 
 
 // exports this routes
