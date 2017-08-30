@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const authRoute = require('./accessToken');
 const usersRoute = require('./users');
 const meRoute = require('./me');
@@ -17,8 +18,5 @@ module.exports = {
 
         // Ideas resource
         app.use('/ideas', ideasRoute);
-
-        // Add a catchall route here
-        app.use('*', express.static('client/dist'));
     }
 }

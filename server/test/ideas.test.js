@@ -1,6 +1,6 @@
 const request = require('supertest');
 const expect = require('chai').expect;
-const app = require('../');
+const app = require('../../');
 const User = require('../models/user');
 
 const testUsers = [
