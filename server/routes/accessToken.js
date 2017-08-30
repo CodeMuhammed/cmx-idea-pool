@@ -4,10 +4,11 @@ const authActions = require('../controllers/authController');
 const router = new express.Router();
 
 router.route('/')
-    .post(authActions.loginUser);
+    .post(authActions.loginUser)
+    .delete(authActions.logoutUser);
 
 router.route('/refresh')
-    .get(authActions.refreshToken);
+    .post(authActions.refreshToken);
 
 // exports this routes
 module.exports = router;

@@ -15,7 +15,7 @@ const saveUser = (user) => {
     return deferred.promise;
 }
 
-const createUser = (req, res, next) => {
+const createUser = (req, res) => {
     User.findOne({email: req.body.email}, (err, user) => {
         if (err) return res.status(500).send(err);
         if (!user) {
@@ -38,7 +38,7 @@ const createUser = (req, res, next) => {
                 // Catch all errors that might occour during the steps
                 .fail((err) => {
                     console.log(err);
-                    res.status(500).send({mgs: 'internal server error'});
+                    res.status(500).send(err);
                 });
         } else {
             res.status(409).send({mgs: 'user already exists'});
