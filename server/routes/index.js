@@ -1,7 +1,7 @@
 const express = require('express');
 const authRoute = require('./accessToken');
-const userRoute = require('./users');
-const authMiddleware = require('../middlewares/auth');
+const usersRoute = require('./users');
+const meRoute = require('./me');
 
 module.exports = {
     apply: (app) => {
@@ -9,7 +9,10 @@ module.exports = {
         app.use('/access-tokens', authRoute);
 
         // User resource
-        app.use('/users', authMiddleware.authorize, userRoute);
+        app.use('/users', usersRoute);
+
+        // me ie a user resuorce
+        app.use('/me', meRoute);
 
         // Add a catchall route here
         app.use('*', express.static('client/dist'));

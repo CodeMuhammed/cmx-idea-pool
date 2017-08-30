@@ -4,7 +4,8 @@
   "description": "records your ideas!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server"
   },
   "keywords": [
     "idea",
@@ -13,6 +14,7 @@
   "author": "Muhammed Ali",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
@@ -20,6 +22,18 @@
     "jsonwebtoken": "^7.4.3",
     "method-override": "^2.3.9",
     "mongoose": "^4.11.9",
-    "morgan": "^1.8.2"
+    "morgan": "^1.8.2",
+    "q": "^1.5.0",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.11.0"
   }
 }
