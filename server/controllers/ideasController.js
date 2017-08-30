@@ -1,6 +1,7 @@
+var mongoose = require('mongoose');
 const Idea = require('../models/idea');
 
-const createIdea = (req, res, next) => {
+const createIdea = (req, res) => {
     req.body.creatorEmail = req.decoded.userEmail;
     Idea.create(req.body, (err, idea) => {
         if (err) res.status(500).send({ msg: 'internal server error' });
@@ -10,9 +11,7 @@ const createIdea = (req, res, next) => {
     });
 }
 
-const removeIdea = (req, res, next) => {
-    console.log('delete idea route called');
-    console.log(req.params.id);
+const removeIdea = (req, res) => {
     Idea.findByIdAndRemove(req.params.id, (err, info) => {
         if (err) res.status(500).send({ msg: 'internal server error' });
         else {
@@ -21,8 +20,7 @@ const removeIdea = (req, res, next) => {
     });
 }
 
-const getIdeas = (req, res, next) => {
-    console.log(req.query);
+const getIdeas = (req, res) => {
     const page = req.query.page || 1;
     const pageSize = 10;
     const pageOffset = (page * pageSize) - pageSize;
@@ -35,8 +33,20 @@ const getIdeas = (req, res, next) => {
     });
 }
 
+const updateIdea = (req, res) => {
+    Idea.update({ _id: req.params.id }, req.body, (err, info) => {
+        console.log(err);
+        if (err) res.status(500).send({ msg: 'internal server error' });
+        else {
+            console.log('jere');
+            res.status(200).send(info);
+        }
+    });
+}
+
 module.exports = {
     createIdea,
     removeIdea,
-    getIdeas
+    getIdeas,
+    updateIdea
 }

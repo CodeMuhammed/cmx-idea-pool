@@ -64,7 +64,7 @@ const logoutUser = (req, res) => {
     }
 }
 
-const refreshToken = (req, res, next) => {
+const refreshToken = (req, res) => {
     console.log(req.body);
     RefreshToken.findOne({token: req.body.refresh_token}, (err, tokenObj) => {
         if (err) return res.status(500).send(err);

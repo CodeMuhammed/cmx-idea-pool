@@ -9,6 +9,7 @@ router.route('/')
     .post(authMiddleware.authorize, ideasActions.createIdea)
 
 router.route('/:id')
+    .put(authMiddleware.authorize, ideasActions.updateIdea)
     .delete(authMiddleware.authorize, ideasActions.removeIdea)
 
 
