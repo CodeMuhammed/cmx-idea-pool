@@ -7,7 +7,6 @@ const authorize = (req, res, next) => {
 
     if (token) {
         return jwt.verify(token, secret, (err, decoded) => {
-            console.log(err);
             if (err) {
                 return res.status(401).send({ success: false, msg: 'invalid token' });
             }

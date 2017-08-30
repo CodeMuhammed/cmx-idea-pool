@@ -2,6 +2,7 @@ const express = require('express');
 const authRoute = require('./accessToken');
 const usersRoute = require('./users');
 const meRoute = require('./me');
+const ideasRoute = require('./ideas');
 
 module.exports = {
     apply: (app) => {
@@ -14,7 +15,8 @@ module.exports = {
         // me ie a user resource
         app.use('/me', meRoute);
 
-        // Ideas resource @TODO
+        // Ideas resource
+        app.use('/ideas', ideasRoute);
 
         // Add a catchall route here
         app.use('*', express.static('client/dist'));
