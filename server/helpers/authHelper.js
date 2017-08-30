@@ -20,7 +20,7 @@ const serializeRefreshToken = (email) => {
     return deferred.promise;
 }
 
-const generateAccessTokenFromRefreshToken = (refreshToken) => {
+const refreshAccessToken = (refreshToken) => {
 
 }
 
@@ -29,12 +29,12 @@ const generateAccessToken = (email) => {
     return jwt.sign(
         { userEmail: email },
         secret,
-        { expiresIn: 60 * 60 * 24 } // expires in 24 hours
+        { expiresIn: 10 * 60 } // expires in 10 minutes
     );
 }
 
 module.exports = {
     serializeRefreshToken,
-    generateAccessTokenFromRefreshToken,
+    refreshAccessToken,
     generateAccessToken
 }

@@ -32,7 +32,6 @@ const createUser = (req, res, next) => {
                 })
                 // Send the refresh and access token to the client
                 .then((jwt) => {
-                    console.log(jwt);
                     result.jwt = jwt;
                     res.status(200).send(result);
                 })
