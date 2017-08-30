@@ -35,7 +35,6 @@ const getIdeas = (req, res) => {
 
 const updateIdea = (req, res) => {
     Idea.update({ _id: req.params.id }, req.body, (err, info) => {
-        console.log(err);
         if (err) res.status(500).send({ msg: 'internal server error' });
         else {
             console.log('jere');
