@@ -2,20 +2,25 @@ const jwt = require('jsonwebtoken');
 
 const authorize = (req, res, next) => {
     const token = req.headers['x-access-token'];
+    const secret = process.env.jwt_secret;
+    console.log(token);
+
     if (token) {
-        return jwt.verify(token, 'SECRET HERE', (err, decoded) => {
-        if (err) {
-            return res.status(401).send({ success: false, msg: 'failed to authenticate token' });
-        }
-        Object.defineProperty(req, 'decoded', {
-            value: decoded,
-        });
-        return next();
+        return jwt.verify(token, secret, (err, decoded) => {
+            console.log(err);
+            if (err) {
+                return res.status(401).send({ success: false, msg: 'invalid token' });
+            }
+            Object.defineProperty(req, 'decoded', {
+                value: decoded
+            });
+
+            return next();
         });
     }
     return res.status(403).send({
         success: false,
-        msg: 'no token provided',
+        msg: 'no token provided'
     });
 }
 

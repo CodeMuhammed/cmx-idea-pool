@@ -8,6 +8,9 @@ let UserSchema = new Schema({
     name: { type: String, required: true },
     avatar: { type: String, required: false },
     password: { type: String, required: true }
+},
+{
+    versionKey: false
 });
 
 UserSchema.pre('save', function (next) {
