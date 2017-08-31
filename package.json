@@ -6,9 +6,9 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha './server/test/**/*.js'",
     "start": "nodemon ./",
-    "build:client": "cd ./client && ng build",
-    "postinstall": "cd ./client && npm install",
-    "heroku-postbuild": "cd ./client && npm install && npm run build:client"
+    "build:client": "cd client && ng build",
+    "postinstall": "cd client && npm install",
+    "heroku-postbuild": "cd client && npm install && ng build"
   },
   "keywords": [
     "idea",
