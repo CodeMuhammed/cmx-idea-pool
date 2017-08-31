@@ -9,7 +9,7 @@
     "build:client": "cd client && ng build",
     "postinstall": "cd client && npm install",
     "heroku-postbuild": "cd client && node_modules/angular-cli/bin/ng build",
-    "heroku-prebuild": "npm install -g http-server"
+    "heroku-prebuild": " npm install -g angular-cli"
   },
   "keywords": [
     "idea",
