@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component }    from '@angular/core';
+import { Router }      from '@angular/router';
+import { AuthService }  from '../../services/auth.service';
 
 @Component({
   selector: 'sign-in',
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class SigninComponent {
   title = 'Sign in!';
+  userDetaiils = {};
+  constructor(public authService: AuthService, public router: Router) {}
+
+  login() {
+    this.authService.login(this.userDetaiils).subscribe((status) => {
+      let url = this.authService.redirectUrl || '/dashboard';
+      this.router.navigate([url]);
+    });
+  }
 }
