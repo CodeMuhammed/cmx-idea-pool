@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha './server/test/**/*.js'",
     "start": "nodemon ./ & cd client && npm run start",
-    "build:client": "cd client && npm install && ng build",
+    "build:client": "cd client && npm install && ng build --prod",
     "postinstall": "npm run build:client"
   },
   "keywords": [
