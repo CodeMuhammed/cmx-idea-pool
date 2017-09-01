@@ -9,6 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IdeaViewComponent } from './components/idea-view/idea-view.component';
+import { IdeaEditComponent } from './components/idea-edit/idea-edit.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -18,7 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
     SignupComponent,
     SigninComponent,
     DashboardComponent,
-    IdeaViewComponent
+    IdeaViewComponent,
+    IdeaEditComponent
   ],
   imports: [
     BrowserModule,

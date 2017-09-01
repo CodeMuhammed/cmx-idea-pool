@@ -5,23 +5,32 @@
         <div class="col-sm-4 side-bar">
             <div class="idea-summary-container">
               <div class="summary-header">
-                  <input class="form-control" placeholder="filter ideas">
+                  <input 
+                      class="form-control" 
+                      placeholder="filter ideas"  
+                      (ngModelChange)="filterData($event)"
+                      [(ngModel)]="filterText">
               </div>
               <div class="idea-summary-body">
-                <span class="idea" *ngFor="let idea of ideas" (click)="selectIdea(idea)">
-                  <span class="idea-content">
+                <span class="idea" *ngFor="let idea of ideas">
+                  <span class="idea-content" (click)="selectIdea(idea)">
                     {{idea.content.substr(0, 50) + ' ...'}}
                   </span>
                   <div class="options col-xs-12">
-                      <span class="option">Edit</span>
-                      <span class="option pull-right">Delete</span>
+                      <span class="option" (click)="editIdea(idea)">Edit</span>
+                      <span class="option" (click)="deleteIdea(idea)">Delete</span>
                   </div>
                 </span>
               </div>
             </div>
           </div>
           <div class="col-sm-8 main-display">
-              <idea-view [idea]="selectedIdea"></idea-view>
+              <idea-view [idea]="selectedIdea" *ngIf="viewMode === 'preview'"></idea-view>
+              <idea-edit 
+                [idea]="selectedIdea" 
+                *ngIf="viewMode === 'edit'"
+                (save)="saveIdea($event)"
+                (cancel)="cancelEdit()"></idea-edit>
           </div>
       </div>
   </div>
