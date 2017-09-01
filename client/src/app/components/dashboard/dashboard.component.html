@@ -7,9 +7,12 @@
               <div class="summary-header">
                   <input 
                       class="form-control" 
-                      placeholder="filter ideas"  
+                      placeholder="Search ideas"  
                       (ngModelChange)="filterData($event)"
                       [(ngModel)]="filterText">
+              </div>
+              <div class="col-xs-12 well text-center new-idea" (click)="editIdea(newIdeaTemplate)">
+                 <i class="icon fa fa-plus"></i> new idea
               </div>
               <div class="idea-summary-body">
                 <span class="idea" *ngFor="let idea of ideas">

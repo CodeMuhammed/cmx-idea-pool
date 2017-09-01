@@ -13,6 +13,14 @@ export class DashboardComponent {
         'ease': 0,
         'confidence': 0
     };
+    newIdeaTemplate = {
+        '_id': 0,
+        'content': 'Enter your new idea here',
+        'impact': 1,
+        'ease': 1,
+        'confidence': 1
+    };
+
     filterText = '';
     title = 'iDea bOx';
     viewMode = 'preview'; // or edit
@@ -52,23 +60,40 @@ export class DashboardComponent {
     }
 
     editIdea(idea) {
-      console.log('here');
         this.selectedIdea = idea;
         this.viewMode = 'edit';
     }
 
     cancelEdit() {
+      // if selected was new, just pick the first on the list
+      let alreadyExists = false;
+      this.rawIdeas.forEach((idea, index) => {
+        if(idea._id === this.selectedIdea._id) {
+          alreadyExists = true;
+        }
+      });
+
+      if(!alreadyExists) {
+        this.selectedIdea = this.ideas[0];
+      }
       this.viewMode = 'preview';
     }
 
     saveIdea(e) {
       this.selectedIdea = e;
-      this.ideas.forEach((idea, index) => {
+      let alreadyExists = false;
+      this.rawIdeas.forEach((idea, index) => {
         if(idea._id === this.selectedIdea._id) {
-          this.ideas[index] = this.selectedIdea;
+          this.rawIdeas[index] = this.selectedIdea;
+          this.ideas = this.rawIdeas.slice();
+          alreadyExists = true;
         }
       });
 
+      if(!alreadyExists) {
+        this.rawIdeas.unshift(this.selectedIdea);
+        this.ideas = this.rawIdeas.slice();
+      }
       this.viewMode = 'preview';
     }
 
