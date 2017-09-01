@@ -13,11 +13,6 @@ import { LocalStorageService }      from './local-storage.service';
 
 @Injectable()
 export class AuthService {
-    authObj = {
-        "refresh_token": "BVA5iNua7Oelqotv19xHOCwq0kf8pA5L",
-        "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJjb2RlbXVoYW1kbWRlZEBnbWFpbC5jb20iLCJpYXQiOjE1MDQyNjAzMTIsImV4cCI6MTUwNDMyMDMxMn0._Z3I45OWiUG1Eyo450DvxL3yq0n3qoXDVyBJqZMxmJM"
-    };
-
     constructor(private localStorageService: LocalStorageService, private router: Router, private http: Http) {}
     
     // store the URL so we can redirect after logging in
