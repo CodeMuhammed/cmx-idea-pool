@@ -4,6 +4,7 @@ const Idea = require('../models/idea');
 const createIdea = (req, res) => {
     req.body.creator = req.decoded.userEmail;
     Idea.create(req.body, (err, idea) => {
+        console.log(err);
         if (err) res.status(500).send({ msg: 'internal server error' });
         else {
             res.status(200).send(idea);
