@@ -1,8 +1,13 @@
 .logo {
-    position: fixed;
-    left: 3em;
-    top:3em;
+    padding-left: 2em;
 }
+
+.logout {
+    padding-left: 2em;
+    cursor: pointer;
+    display: inline-block;
+}
+
 .header {
     background-color: #e3f2fd;
     padding: 1em 2em;

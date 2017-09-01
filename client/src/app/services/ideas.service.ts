@@ -12,12 +12,9 @@ import { AuthService }  from './auth.service';
 
 @Injectable()
 export class IdeasService {
-    baseUrl = this.setBaseUrl();
     constructor(private authService: AuthService, private http: Http, private router: Router) {}
-    
-    setBaseUrl() {
-        return location.hostname == 'localhost' ? 'http://localhost:8001' : '';
-    }
+
+    baseUrl = this.authService.baseUrl();
 
     getIdeas() {
         let headers = new Headers({

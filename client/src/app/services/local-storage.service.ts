@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -31,5 +29,18 @@ export class LocalStorageService {
 	if(name) {
   		return data[name];
   	}
+  }
+
+  remove(name) {
+      let appData = localStorage.getItem(this.appName);
+      let appDataObj;
+      if(appData) {
+            appDataObj = JSON.parse(appData);
+      } else {
+            appDataObj= {};
+      }
+
+      delete appDataObj[name];
+      localStorage.setItem(this.appName, JSON.stringify(appDataObj));
   }
 }

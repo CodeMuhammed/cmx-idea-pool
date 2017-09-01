@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IdeasService }      from '../../services/ideas.service';
+import { AuthService }      from '../../services/auth.service';
 
 @Component({
   selector: 'dashboard',
@@ -7,7 +8,7 @@ import { IdeasService }      from '../../services/ideas.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-    constructor(private ideasService: IdeasService) {}
+    constructor(private ideasService: IdeasService, private authService: AuthService) {}
 
     defaultIdea = {
         '_id': 0,
@@ -138,5 +139,9 @@ export class DashboardComponent {
                    alert(error);
                 }
             )
+    }
+
+    logout() {
+        this.authService.logout();
     }
 }

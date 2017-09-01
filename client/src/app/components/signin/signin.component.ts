@@ -9,13 +9,21 @@ import { AuthService }  from '../../services/auth.service';
 })
 export class SigninComponent {
   title = 'Sign in!';
-  userDetaiils = {};
+  userDetaiils = {
+     email: 'codemuhamdmded@gmail.com',
+	   password: 'anything'
+  };
   constructor(public authService: AuthService, public router: Router) {}
 
   login() {
-    this.authService.login(this.userDetaiils).subscribe((status) => {
-      let url = this.authService.redirectUrl || '/dashboard';
-      this.router.navigate([url]);
-    });
+    this.authService.login(this.userDetaiils).subscribe(
+      (status) => {
+        let url = this.authService.redirectUrl || '/dashboard';
+        this.router.navigate([url]);
+      },
+      (err) => {
+         alert(err);
+      }
+    );
   }
 }
