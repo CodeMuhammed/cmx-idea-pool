@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IdeasService }      from '../../services/ideas.service';
 
 @Component({
   selector: 'dashboard',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+    constructor(private ideasService: IdeasService) {}
+
     defaultIdea = {
         '_id': 0,
         'content': '',
@@ -24,23 +27,8 @@ export class DashboardComponent {
     filterText = '';
     title = 'iDea bOx';
     viewMode = 'preview'; // or edit
-    rawIdeas = [
-      {
-        '_id': 1,
-        'content': 'Just like in Angular 1.x, Angular 2 also provides with its own service called Http for making requests to servers',
-        'impact': 8,
-        'ease': 8,
-        'confidence': 8
-      },
-      {
-        '_id': 2,
-        'content': 'Another cool idea i just thought about. go to mars and buy a mat',
-        'impact': 10,
-        'ease': 1,
-        'confidence': 5
-      }
-    ];
 
+    rawIdeas = [];
     ideas = this.rawIdeas.slice();
 
     filterData(e) {
@@ -53,6 +41,19 @@ export class DashboardComponent {
     }
 
     selectedIdea = this.defaultIdea;
+
+    ngOnInit() { 
+        this.ideasService.getIdeas()
+            .subscribe(
+                ideas => {
+                  this.rawIdeas = ideas;
+                  this.ideas = this.rawIdeas.slice();
+                },
+                error => {
+                   alert(error);
+                }
+            )
+    }
 
     selectIdea(idea) {
         this.selectedIdea = idea;
@@ -80,21 +81,18 @@ export class DashboardComponent {
     }
 
     saveIdea(e) {
-      this.selectedIdea = e;
-      let alreadyExists = false;
-      this.rawIdeas.forEach((idea, index) => {
-        if(idea._id === this.selectedIdea._id) {
-          this.rawIdeas[index] = this.selectedIdea;
-          this.ideas = this.rawIdeas.slice();
-          alreadyExists = true;
-        }
-      });
+       this.selectedIdea = e;
+       let alreadyExists = this.selectedIdea._id == 0 ? false : true;
 
-      if(!alreadyExists) {
-        this.rawIdeas.unshift(this.selectedIdea);
-        this.ideas = this.rawIdeas.slice();
-      }
-      this.viewMode = 'preview';
+        alreadyExists ? this.updateIdea() : this.createIdea();
+    }
+
+    createIdea() {
+        console.log('about to create a new idea');
+    }
+
+    updateIdea() {
+        console.log('about to update idea');
     }
 
     deleteIdea(idea) {
@@ -102,7 +100,8 @@ export class DashboardComponent {
           this.selectedIdea = this.defaultIdea;
       }
       
-      let index = this.ideas.indexOf(idea);
-      this.ideas.splice(index, 1);
+      let index = this.rawIdeas.indexOf(idea);
+      this.rawIdeas.splice(index, 1);
+      this.ideas = this.rawIdeas.slice();
     }
 }

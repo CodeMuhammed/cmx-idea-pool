@@ -5,9 +5,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
-import { AuthService }      from './services/auth.service';
 
- 
 const routes: Routes = [
       {
         path: 'signup',
@@ -36,9 +34,6 @@ const routes: Routes = [
   exports: [ 
       RouterModule 
   ],
-  providers: [
-    AuthGuard,
-    AuthService
-  ],
+  providers: [],
 })
 export class AppRoutingModule {}
