@@ -19,10 +19,6 @@ export class IdeasService {
         return location.hostname == 'localhost' ? 'http://localhost:8001' : '';
     }
 
-    createIdea() {
-
-    }
-
     getIdeas() {
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -40,12 +36,56 @@ export class IdeasService {
             });
     }
 
-    updateIdea() {
+    createIdea(idea) {
+        delete idea._id; // this dummy id should not go to the server
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': this.authService.getAccessToken()
+        });
+        let options = new RequestOptions({headers});
 
+        return this.http.post(`${this.baseUrl}/ideas`, idea, options)
+            .map(this.parseData)
+            .catch((error) => {
+                if(error.status === 401 || error.status === 403) 
+                    this.router.navigate(['/signin']);
+
+                return this.handleError(error);
+            });
     }
 
-    deleteIdea() {
+    updateIdea(idea) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': this.authService.getAccessToken()
+        });
+        let options = new RequestOptions({headers});
 
+        return this.http.put(`${this.baseUrl}/ideas/${idea._id}`, idea, options)
+            .map(this.parseData)
+            .catch((error) => {
+                if(error.status === 401 || error.status === 403) 
+                    this.router.navigate(['/signin']);
+
+                return this.handleError(error);
+            });
+    }
+
+    deleteIdea(idea) {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': this.authService.getAccessToken()
+        });
+        let options = new RequestOptions({headers});
+
+        return this.http.delete(`${this.baseUrl}/ideas/${idea._id}`, options)
+            .map(this.parseData)
+            .catch((error) => {
+                if(error.status === 401 || error.status === 403) 
+                    this.router.navigate(['/signin']);
+
+                return this.handleError(error);
+            });
     }
 
     // This method parses the data to JSON

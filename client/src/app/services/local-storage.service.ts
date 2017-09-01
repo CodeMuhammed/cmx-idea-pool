@@ -4,7 +4,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LocalStorageService {
-  appName = 'ideabox';
+  appName =this.setAppName();
+
+  setAppName() {
+      return location.hostname == 'localhost' ? 'ideabox_dev' : 'ideabox';
+  }
+
   save(name, data) {
     let appData = localStorage.getItem(this.appName);
     let appDataObj;

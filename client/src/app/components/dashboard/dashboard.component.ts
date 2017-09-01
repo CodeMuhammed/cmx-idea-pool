@@ -88,20 +88,55 @@ export class DashboardComponent {
     }
 
     createIdea() {
-        console.log('about to create a new idea');
+        this.ideasService.createIdea(this.selectedIdea)
+            .subscribe(
+                idea => {
+                   this.rawIdeas.unshift(idea);
+                   this.ideas = this.rawIdeas.slice();
+                   this.selectIdea = idea;
+                   this.viewMode = 'preview';
+                },
+                error => {
+                   alert(error);
+                }
+            )
     }
 
     updateIdea() {
-        console.log('about to update idea');
+        this.ideasService.updateIdea(this.selectedIdea)
+            .subscribe(
+                stat => {
+                   console.log(stat);
+                   this.rawIdeas.forEach((idea, index) => {
+                     if(this.selectedIdea._id === idea._id) {
+                        this.rawIdeas[index] = this.selectedIdea;
+                        this.ideas = this.rawIdeas.slice();
+                        this.viewMode = 'preview';
+                     }
+                   });
+                },
+                error => {
+                   alert(error);
+                }
+            )
     }
 
     deleteIdea(idea) {
-      if(idea._id === this.selectedIdea._id) {
-          this.selectedIdea = this.defaultIdea;
-      }
-      
-      let index = this.rawIdeas.indexOf(idea);
-      this.rawIdeas.splice(index, 1);
-      this.ideas = this.rawIdeas.slice();
+      this.ideasService.deleteIdea(idea)
+            .subscribe(
+                stat => {
+                   console.log(stat);
+                   if(idea._id === this.selectedIdea._id) {
+                        this.selectedIdea = this.defaultIdea;
+                   }
+                    
+                   let index = this.rawIdeas.indexOf(idea);
+                   this.rawIdeas.splice(index, 1);
+                   this.ideas = this.rawIdeas.slice();
+                },
+                error => {
+                   alert(error);
+                }
+            )
     }
 }
