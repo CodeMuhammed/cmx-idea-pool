@@ -29,14 +29,17 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Point static path to dist
-app.use(express.static(path.join(__dirname, 'client/dist')));
-
 // Add custom routes here
 routes.apply(app);
 
+// Point static path to dist
+app.use('/', express.static(path.join(__dirname, 'client/dist'), {
+    redirect: false
+}));
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
+    console.log('here');
     res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
