@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 const Idea = require('../models/idea');
 
 const createIdea = (req, res) => {
-    req.body.creatorEmail = req.decoded.userEmail;
+    req.body.creator = req.decoded.userEmail;
     Idea.create(req.body, (err, idea) => {
         if (err) res.status(500).send({ msg: 'internal server error' });
         else {
@@ -25,8 +25,7 @@ const getIdeas = (req, res) => {
     const pageSize = 10;
     const pageOffset = (page * pageSize) - pageSize;
 
-    // @TODO get only the ideas created by this user
-    Idea.find().sort({createdAt: 1}).skip(pageOffset).limit(pageSize).find((err, docs) => {
+    Idea.find({ creator: req.decoded.userEmail }).sort({createdAt: 1}).skip(pageOffset).limit(pageSize).find((err, docs) => {
         if (err) res.status(500).send({ msg: 'internal server error' });
         else {
             res.status(200).send(docs);

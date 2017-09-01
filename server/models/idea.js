@@ -5,7 +5,8 @@ const ideaSchema = new Schema({
     content: { type: String, required: true },
     impact: { type: String, required: true },
     ease: { type: String, required: true },
-    confidence: { type: String, required: true }
+    confidence: { type: String, required: true },
+    creator: { type: String, required: true }
 },
 {
     timestamps: true,
