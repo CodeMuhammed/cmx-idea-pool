@@ -8,22 +8,31 @@ import { AuthService }  from '../../services/auth.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
-  title = 'Sign in!';
-  userDetaiils = {
-     email: 'codemuhamdmded@gmail.com',
-	   password: 'anything'
-  };
   constructor(public authService: AuthService, public router: Router) {}
+  userDetails;
+  errorMessage;
+  ngOnInit() {
+    // we will initialize our form here
+    this.userDetails = {
+        email: '',
+        password: ''
+    };
+  }
 
   login() {
-    this.authService.login(this.userDetaiils).subscribe(
+    console.log(this.userDetails);
+    this.authService.login(this.userDetails).subscribe(
       (status) => {
         let url = this.authService.redirectUrl || '/dashboard';
         this.router.navigate([url]);
       },
       (err) => {
-         alert(err);
+         this.errorMessage = 'Invalid username or password';
       }
     );
+  }
+
+  resetError() {
+    this.errorMessage = undefined;
   }
 }

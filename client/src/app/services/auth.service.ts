@@ -65,7 +65,6 @@ export class AuthService {
             })
             .subscribe(
                 (stat) => {
-                    console.log(stat);
                     this.localStorageService.remove('refresh_token');
                     this.localStorageService.remove('jwt');
                     this.router.navigate(['/signin']);
