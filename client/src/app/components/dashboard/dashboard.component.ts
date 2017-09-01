@@ -94,7 +94,7 @@ export class DashboardComponent {
                 idea => {
                    this.rawIdeas.unshift(idea);
                    this.ideas = this.rawIdeas.slice();
-                   this.selectIdea = idea;
+                   this.selectedIdea = idea;
                    this.viewMode = 'preview';
                 },
                 error => {
