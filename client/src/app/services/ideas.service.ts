@@ -12,8 +12,12 @@ import { AuthService }  from './auth.service';
 
 @Injectable()
 export class IdeasService {
-    baseUrl = 'http://localhost:8001';
+    baseUrl = this.setBaseUrl();
     constructor(private authService: AuthService, private http: Http, private router: Router) {}
+    
+    setBaseUrl() {
+        return location.hostname == 'localhost' ? 'http://localhost:8001' : '';
+    }
 
     createIdea() {
 
