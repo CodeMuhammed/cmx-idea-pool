@@ -40,11 +40,23 @@ export class AuthService {
             });
     }
 
-    signup(userDetails): Observable<boolean> {
-        // @TODO
-        return Observable.of(true).delay(1000).do(val => {
-            return;
+    signup(userDetails) {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
         });
+        let options = new RequestOptions({headers});
+
+        return this.http.post(`${this.baseUrl()}/users`, userDetails, options)
+            .map(this.parseData)
+            .map((data) => {
+                console.log(data);
+                this.localStorageService.save('refresh_token', data.refresh_token);
+                this.localStorageService.save('jwt', data.jwt);
+                return true;
+            })
+            .catch((error) => {
+                return this.handleError(error);
+            });
     }
 
     logout(): void {

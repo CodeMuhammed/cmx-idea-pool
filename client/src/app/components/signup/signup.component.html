@@ -1,3 +1,65 @@
-<h1>
-    {{title}}
-</h1>
+<div class="container">
+  <div class=" form-container">
+    <h1>Signup to iDea bOx</h1>
+    <form #f="ngForm" novalidate (ngSubmit)="signup(f.value, f.valid)">
+        <!-- we will place our fields here -->
+
+        <!--email-->
+        <div class="form-group">
+            <label>Fullname</label>
+            <input
+                (click)="resetError()"
+                class="form-control"
+                type="text" 
+                name="name" 
+                [(ngModel)]="userDetails.name" 
+                #name="ngModel" 
+                required
+                pattern="^\w+ \w+$" >
+            <small [hidden]="name.valid || (name.pristine && !f.submitted)" class="error">
+                Enter a valid fullname (firstname lastname)
+            </small>
+        </div>
+
+        <!--email-->
+        <div class="form-group">
+            <label>Email</label>
+            <input
+                (click)="resetError()"
+                class="form-control"
+                type="email" 
+                name="email" 
+                [(ngModel)]="userDetails.email" 
+                #email="ngModel" 
+                required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" >
+            <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="error">
+                Valid email is required
+            </small>
+        </div>
+
+        <!--password-->
+        <div class="form-group">
+            <label>Password</label>
+            <input
+                (click)="resetError()"
+                class="form-control"
+                type="password" 
+                name="password" 
+                [(ngModel)]="userDetails.password" 
+                #password="ngModel"
+                required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+            <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="error">
+                Password must be a Minimum eight characters, at least one uppercase letter, one lowercase letter and one number: (no special characters)
+            </small>
+        </div>
+        <div class="alert alert-warning" *ngIf="errorMessage">{{errorMessage}}</div>
+
+        <button [disabled]="!f.valid" class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="col-xs-12 switch">
+      Already have an account? <a href="/signin">Sign in here</a>
+  </div>
+</div>

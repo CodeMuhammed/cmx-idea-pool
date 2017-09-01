@@ -38,7 +38,7 @@ const createUser = (req, res) => {
                 // Catch all errors that might occour during the steps
                 .fail((err) => {
                     console.log(err);
-                    res.status(500).send(err);
+                    res.status(422).send(err);
                 });
         } else {
             res.status(409).send({mgs: 'user already exists'});

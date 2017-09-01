@@ -15,7 +15,7 @@ jwt_secret_dev=areallylongsecretthatonlymeknowsabout
 
 - step 4: `npm run start`
 
-Your app should be accessible on localhost:8001
+Your app should be accessible on localhost:4002 on the browser
 
 ## To test the app run
 `npm run test`

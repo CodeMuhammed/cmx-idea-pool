@@ -84,7 +84,7 @@ describe('CMX idea pool authentication', () => {
                 .set('Accept', 'application/json')
                 .send(userLoginCredentials)
                 .expect('Content-Type', /json/)
-                .expect(409)
+                .expect(404)
                 .end((err, res) => {
                     if (err) return done(err);
                     return done();

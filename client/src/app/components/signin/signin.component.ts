@@ -20,7 +20,6 @@ export class SigninComponent {
   }
 
   login() {
-    console.log(this.userDetails);
     this.authService.login(this.userDetails).subscribe(
       (status) => {
         let url = this.authService.redirectUrl || '/dashboard';
