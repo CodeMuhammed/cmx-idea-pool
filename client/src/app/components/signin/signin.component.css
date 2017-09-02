@@ -1,0 +1,18 @@
+.form-container {
+    padding-top: 6em;
+}
+
+.form-container h1{
+    margin-bottom: 1em;
+}
+
+.switch {
+    margin-top: 2em;
+}
+
+.error {
+    display:block; 
+    margin-top:.5em; 
+    font-weight: bold; 
+    color: red;
+}

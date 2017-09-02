@@ -1,0 +1,45 @@
+<div class="col-xs-12 nav">
+  <span class="logo">iDea bOx</span>
+  <span class="logout" (click)="logout()">logout</span>
+</div>
+<loader></loader>
+<div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="body-container row col-sm-10 justify-content-md-center">
+        <div class="col-sm-4 side-bar">
+            <div class="idea-summary-container">
+              <div class="summary-header">
+                  <input 
+                      class="form-control" 
+                      placeholder="Search ideas"  
+                      (ngModelChange)="filterData($event)"
+                      [(ngModel)]="filterText">
+              </div>
+              <div class="col-xs-12 well text-center new-idea" (click)="editIdea(newIdeaTemplate)">
+                 <i class="icon fa fa-plus"></i> new idea
+              </div>
+              <div class="idea-summary-body">
+                <span class="idea" *ngFor="let idea of ideas" [ngClass]="selectedIdea._id == idea._id? 'active-idea' : ''">
+                  <span class="idea-content" (click)="selectIdea(idea)">
+                    {{idea.content.substr(0, 50) + ' ...'}}
+                  </span>
+                  <div class="options col-xs-12">
+                      <span class="option" (click)="editIdea(idea)">Edit</span>
+                      <span class="option" (click)="deleteIdea(idea)">Delete</span>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8 main-display">
+              <idea-view [idea]="selectedIdea" *ngIf="viewMode === 'preview'"></idea-view>
+              <idea-edit 
+                [idea]="selectedIdea" 
+                *ngIf="viewMode === 'edit'"
+                (save)="saveIdea($event)"
+                (cancel)="cancelEdit()"></idea-edit>
+          </div>
+      </div>
+  </div>
+</div>
