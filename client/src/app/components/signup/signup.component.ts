@@ -24,7 +24,7 @@ export class SignupComponent {
       console.log(this.userDetails);
       this.authService.signup(this.userDetails).subscribe(
         (status) => {
-          let url = this.authService.redirectUrl || '/signin';
+          let url = this.authService.redirectUrl || '/dashboard';
           this.router.navigate([url]);
         },
         (err) => {
