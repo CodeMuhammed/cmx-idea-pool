@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IdeasService }      from '../../services/ideas.service';
-import { AuthService }      from '../../services/auth.service';
+import { IdeasService }  from '../../services/ideas.service';
+import { AuthService }  from '../../services/auth.service';
 
 @Component({
   selector: 'dashboard',
@@ -47,10 +47,7 @@ export class DashboardComponent {
         this.ideasService.getIdeas()
             .subscribe(
                 (ideas) => {
-                    ideas.sort((idea1, idea2) => {
-                       return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                    });
-
+                    this.sortIdeas(ideas);
                     this.rawIdeas = ideas;
                     this.ideas = this.rawIdeas.slice();
                 },
@@ -64,8 +61,10 @@ export class DashboardComponent {
         return (idea.impact + idea.ease + idea.confidence) / 3;
     }
 
-    sortIdea() {
-        
+    sortIdeas(ideas) {
+        ideas.sort((idea1, idea2) => {
+            return this.getAverageScore(idea2) - this.getAverageScore(idea1);
+        });
     }
 
     selectIdea(idea) {
@@ -105,9 +104,7 @@ export class DashboardComponent {
             .subscribe(
                 idea => {
                    this.rawIdeas.unshift(idea);
-                   this.rawIdeas.sort((idea1, idea2) => {
-                       return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                   });
+                   this.sortIdeas(this.rawIdeas);
                    this.ideas = this.rawIdeas.slice();
                    this.selectedIdea = idea;
                    this.viewMode = 'preview';
@@ -126,9 +123,7 @@ export class DashboardComponent {
                    this.rawIdeas.forEach((idea, index) => {
                      if(this.selectedIdea._id === idea._id) {
                         this.rawIdeas[index] = this.selectedIdea;
-                        this.rawIdeas.sort((idea1, idea2) => {
-                            return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                        });
+                        this.sortIdeas(this.rawIdeas);
                         this.ideas = this.rawIdeas.slice();
                         this.viewMode = 'preview';
                      }
