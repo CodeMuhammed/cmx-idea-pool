@@ -27,6 +27,8 @@ const createUser = (req, res) => {
                 })
                 // Generate access token by signing with jwt
                 .then((tokenObj) => {
+                    console.log('here');
+                    console.log(tokenObj);
                     result.refresh_token = tokenObj.token;
                     return authHelper.generateAccessToken(tokenObj.email);
                 })

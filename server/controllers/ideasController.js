@@ -3,7 +3,6 @@ const Idea = require('../models/idea');
 
 const createIdea = (req, res) => {
     req.body.creator = req.decoded.userEmail;
-    console.log(req.body.creator);
     Idea.create(req.body, (err, idea) => {
         console.log(err);
         if (err) res.status(500).send({ msg: 'internal server error' });
