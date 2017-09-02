@@ -11,15 +11,17 @@ import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IdeaViewComponent } from './components/idea-view/idea-view.component';
 import { IdeaEditComponent } from './components/idea-edit/idea-edit.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
 //services
 import { AuthGuard } from './services/auth-guard.service';
-import { AuthService }      from './services/auth.service';
-import { IdeasService }      from './services/ideas.service';
-import { LocalStorageService }      from './services/local-storage.service';
-import { HttpService }      from './services/http.service';
+import { AuthService } from './services/auth.service';
+import { IdeasService } from './services/ideas.service';
+import { LocalStorageService } from './services/local-storage.service';
+import { HttpService } from './services/http.service';
+import { PreloaderService } from './services/preloader.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { HttpService }      from './services/http.service';
     SigninComponent,
     DashboardComponent,
     IdeaViewComponent,
-    IdeaEditComponent
+    IdeaEditComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { HttpService }      from './services/http.service';
     AuthService,
     IdeasService,
     LocalStorageService,
-    HttpService
+    HttpService,
+    PreloaderService
   ],
   bootstrap: [AppComponent]
 })

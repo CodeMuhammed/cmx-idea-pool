@@ -7,23 +7,26 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 
-import { LocalStorageService }      from './local-storage.service';
+import { LocalStorageService } from './local-storage.service';
+import { PreloaderService } from './preloader.service';
 
 @Injectable()
 export class HttpService {
     private baseUrl;
 
-    constructor(private localStorageService: LocalStorageService, private http: Http) {
+    constructor(private localStorageService: LocalStorageService, private http: Http, private preloaderService: PreloaderService) {
         this.baseUrl = location.hostname == 'localhost' ? 'http://localhost:8001' : '';
     }
 
     request(url, options) {
         return Observable.create((observer) => {
+            this.preloaderService.showLoading();
             let fullUrl = `${this.baseUrl}${url}`;
             this.http.request(fullUrl, options)
                 .map(this.parseData)
                 .subscribe(
                     (data) => {
+                        this.preloaderService.hideLoading();
                         observer.next(data);
                     },
                     (err) => {
@@ -36,10 +39,12 @@ export class HttpService {
                                         this.retryRequest(url, options, observer);
                                     },
                                     (err) => {
+                                        this.preloaderService.hideLoading();
                                         observer.error(err);
                                     }
                                 );
                         } else {
+                            this.preloaderService.hideLoading();
                             observer.error(err);
                         }
                     }
@@ -48,13 +53,19 @@ export class HttpService {
     }
 
     private retryRequest(url, options, observer) {
-        console.log('About to retry request');
-        this.request(url, options)
+        console.log(options);
+        options.headers = new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': this.localStorageService.get('jwt')
+        });
+        return this.request(url, options)
             .subscribe(
                 (data) => {
+                    this.preloaderService.hideLoading();
                     observer.next(data);
                 },
                 (err) => {
+                    this.preloaderService.hideLoading();
                     observer.error(err);
                 }
             );
