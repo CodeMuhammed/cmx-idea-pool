@@ -27,9 +27,50 @@ export class HttpService {
                         observer.next(data);
                     },
                     (err) => {
-                        // @TODO if error is 401, refresh token then retry the request again
-                        console.log('Lets see what happens');
-                        console.log(err);
+                        // if error is 401, refresh token then retry the request again
+                        if(err.status === 401) {
+                            this.refreshAccessToken()
+                                .subscribe(
+                                    (data) => {
+                                        this.localStorageService.save('jwt', data.jwt);
+                                        this.retryRequest(url, options, observer);
+                                    },
+                                    (err) => {
+                                        observer.error(err);
+                                    }
+                                );
+                        } else {
+                            observer.error(err);
+                        }
+                    }
+                );
+        });
+    }
+
+    private retryRequest(url, options, observer) {
+        console.log('About to retry request');
+        this.request(url, options)
+            .subscribe(
+                (data) => {
+                    observer.next(data);
+                },
+                (err) => {
+                    observer.error(err);
+                }
+            );
+    }
+
+    private refreshAccessToken() {
+        return Observable.create((observer) => {
+            let refreshTokenObj = {
+                refresh_token: this.localStorageService.get('refresh_token')
+            };
+            this.post('/access-tokens/refresh', refreshTokenObj, { auth: false })
+                .subscribe(
+                    (data) => {
+                        observer.next(data);
+                    },
+                    (err) => {
                         observer.error(err);
                     }
                 );
@@ -45,7 +86,7 @@ export class HttpService {
             'Content-Type': 'application/json',
             'x-access-token': config.auth? this.localStorageService.get('jwt') : ''
         });
-    } 
+    }
 
     get(url: string, config: any) {
         let headers = this.addDefaultHeaders(config);
