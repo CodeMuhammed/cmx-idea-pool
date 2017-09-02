@@ -12,7 +12,6 @@ export class SigninComponent {
   userDetails;
   errorMessage;
   ngOnInit() {
-    // we will initialize our form here
     this.userDetails = {
         email: '',
         password: ''

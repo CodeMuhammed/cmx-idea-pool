@@ -19,7 +19,7 @@
                  <i class="icon fa fa-plus"></i> new idea
               </div>
               <div class="idea-summary-body">
-                <span class="idea" *ngFor="let idea of ideas">
+                <span class="idea" *ngFor="let idea of ideas" [ngClass]="selectedIdea._id == idea._id? 'active-idea' : ''">
                   <span class="idea-content" (click)="selectIdea(idea)">
                     {{idea.content.substr(0, 50) + ' ...'}}
                   </span>

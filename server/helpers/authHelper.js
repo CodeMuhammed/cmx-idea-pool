@@ -29,7 +29,7 @@ const generateAccessToken = (email) => {
     return jwt.sign(
         { userEmail: email },
         secret,
-        { expiresIn: 1000 * 60 } // expires in 1000 minutes
+        { expiresIn: 10 * 60 } // expires in 10 minutes
     );
 }
 

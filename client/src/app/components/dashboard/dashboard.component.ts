@@ -43,17 +43,18 @@ export class DashboardComponent {
 
     selectedIdea = this.defaultIdea;
 
-    ngOnInit() { 
+    ngOnInit() {
         this.ideasService.getIdeas()
             .subscribe(
-                ideas => {
-                  this.rawIdeas = ideas;
-                  this.ideas = this.rawIdeas.slice();
+                (ideas) => {
+                    console.log(ideas);
+                    this.rawIdeas = ideas;
+                    this.ideas = this.rawIdeas.slice();
                 },
-                error => {
-                   alert(error);
+                (err) => {
+                    alert(err);
                 }
-            )
+            );
     }
 
     selectIdea(idea) {

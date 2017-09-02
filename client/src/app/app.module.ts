@@ -19,6 +19,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { AuthService }      from './services/auth.service';
 import { IdeasService }      from './services/ideas.service';
 import { LocalStorageService }      from './services/local-storage.service';
+import { HttpService }      from './services/http.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LocalStorageService }      from './services/local-storage.service';
     AuthGuard,
     AuthService,
     IdeasService,
-    LocalStorageService
+    LocalStorageService,
+    HttpService
   ],
   bootstrap: [AppComponent]
 })

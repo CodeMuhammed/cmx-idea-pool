@@ -73,11 +73,17 @@
 
 .idea .idea-content {
     font-size: 1.3em;
+    display: block;
+    padding: .5em 0;
 }
 
 .idea:hover{
     background-color: #f3f2fd;
     cursor: pointer;
+}
+
+.active-idea {
+    background-color: #f3f2fd;
 }
 
 .main-display {
@@ -87,10 +93,6 @@
     padding: 1em;
     overflow: auto;
     position: relative;
-}
-
-.options {
-    margin-top: 1em;
 }
 
 .option {
