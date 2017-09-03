@@ -33,11 +33,12 @@
             </div>
           </div>
           <div class="col-sm-8 main-display">
-              <idea-view [idea]="selectedIdea" *ngIf="viewMode === 'preview'"></idea-view>
+              <idea-view [idea]="selectedIdea" (edit)="viewMode = 'edit'" *ngIf="viewMode === 'preview'"></idea-view>
               <idea-edit 
                 [idea]="selectedIdea" 
                 *ngIf="viewMode === 'edit'"
                 (save)="saveIdea($event)"
+                (update)="updateIdea($event)"
                 (cancel)="cancelEdit()"></idea-edit>
           </div>
       </div>

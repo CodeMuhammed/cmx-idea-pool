@@ -93,13 +93,13 @@ export class DashboardComponent {
     }
 
     saveIdea(e) {
-       this.selectedIdea = e;
        let alreadyExists = this.selectedIdea._id == 0 ? false : true;
 
-        alreadyExists ? this.updateIdea() : this.createIdea();
+        alreadyExists ? this.updateIdea(e) : this.createIdea(e);
     }
 
-    createIdea() {
+    createIdea(idea) {
+        this.selectedIdea = idea;
         this.ideasService.createIdea(this.selectedIdea)
             .subscribe(
                 idea => {
@@ -115,7 +115,8 @@ export class DashboardComponent {
             )
     }
 
-    updateIdea() {
+    updateIdea(idea) {
+        this.selectedIdea = idea;
         this.ideasService.updateIdea(this.selectedIdea)
             .subscribe(
                 stat => {
@@ -125,7 +126,6 @@ export class DashboardComponent {
                         this.rawIdeas[index] = this.selectedIdea;
                         this.sortIdeas(this.rawIdeas);
                         this.ideas = this.rawIdeas.slice();
-                        this.viewMode = 'preview';
                      }
                    });
                 },
