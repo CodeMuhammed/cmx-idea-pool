@@ -57,13 +57,15 @@ export class DashboardComponent {
     }
 
     getAverageScore(idea) {
-        return (idea.impact + idea.ease + idea.confidence) / 3;
+        return (parseInt(idea.impact) + parseInt(idea.ease) + parseInt(idea.confidence)) / 3;
     }
 
     sortIdeas(ideas) {
         ideas.sort((idea1, idea2) => {
             return this.getAverageScore(idea2) - this.getAverageScore(idea1);
         });
+
+        console.log(ideas);
     }
 
     selectIdea(idea) {
@@ -102,7 +104,7 @@ export class DashboardComponent {
         this.ideasService.createIdea(this.selectedIdea)
             .subscribe(
                 idea => {
-                   this.rawIdeas.unshift(idea);
+                   this.rawIdeas.push(idea);
                    this.sortIdeas(this.rawIdeas);
                    this.ideas = this.rawIdeas.slice();
                    this.selectedIdea = idea;
@@ -119,7 +121,6 @@ export class DashboardComponent {
         this.ideasService.updateIdea(this.selectedIdea)
             .subscribe(
                 stat => {
-                   console.log(stat);
                    this.rawIdeas.forEach((idea, index) => {
                      if(this.selectedIdea._id === idea._id) {
                         this.rawIdeas[index] = this.selectedIdea;
