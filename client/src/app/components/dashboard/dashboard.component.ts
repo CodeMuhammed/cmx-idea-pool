@@ -25,7 +25,6 @@ export class DashboardComponent {
     };
 
     filterText = '';
-    title = 'iDea bOx';
     viewMode = 'preview'; // or edit
 
     rawIdeas = [];
@@ -43,7 +42,8 @@ export class DashboardComponent {
     selectedIdea = this.defaultIdea;
 
     ngOnInit() {
-        this.ideasService.getIdeas()
+        let page = 1;
+        this.ideasService.getIdeas(page)
             .subscribe(
                 (ideas) => {
                     this.sortIdeas(ideas);
@@ -64,8 +64,6 @@ export class DashboardComponent {
         ideas.sort((idea1, idea2) => {
             return this.getAverageScore(idea2) - this.getAverageScore(idea1);
         });
-
-        console.log(ideas);
     }
 
     selectIdea(idea) {
@@ -95,7 +93,6 @@ export class DashboardComponent {
 
     saveIdea(e) {
        let alreadyExists = this.selectedIdea._id == 0 ? false : true;
-
         alreadyExists ? this.updateIdea(e) : this.createIdea(e);
     }
 
