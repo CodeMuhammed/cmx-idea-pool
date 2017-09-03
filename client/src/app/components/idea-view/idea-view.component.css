@@ -5,3 +5,7 @@
 .view-content {
     height: 25em;
 }
+
+.fr-element .fr-view {
+    min-height: 15em !important;
+}

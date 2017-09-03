@@ -1,0 +1,15 @@
+<div class="pagination">
+    <button 
+        type="button" 
+        [disabled]="page == 1"
+        class="btn btn-outline-secondary  btn-sm" 
+        (click)="paginate(-1)">Prev</button>
+    <span class="page">
+        Page {{page}}
+    </span>
+    <button 
+        type="button" 
+        [disabled]="ideas.length < 10"
+        class="btn btn-outline-secondary btn-sm"
+        (click)="paginate(1)">Next</button>
+</div>

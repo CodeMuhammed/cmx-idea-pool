@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IdeasService }      from '../../services/ideas.service';
-import { AuthService }      from '../../services/auth.service';
+import { IdeasService }  from '../../services/ideas.service';
 
 @Component({
   selector: 'dashboard',
@@ -8,7 +7,7 @@ import { AuthService }      from '../../services/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-    constructor(private ideasService: IdeasService, private authService: AuthService) {}
+    constructor(private ideasService: IdeasService) {}
 
     defaultIdea = {
         '_id': 0,
@@ -19,14 +18,13 @@ export class DashboardComponent {
     };
     newIdeaTemplate = {
         '_id': 0,
-        'content': 'Enter your new idea here',
+        'content': '',
         'impact': 1,
         'ease': 1,
         'confidence': 1
     };
 
     filterText = '';
-    title = 'iDea bOx';
     viewMode = 'preview'; // or edit
 
     rawIdeas = [];
@@ -44,13 +42,11 @@ export class DashboardComponent {
     selectedIdea = this.defaultIdea;
 
     ngOnInit() {
-        this.ideasService.getIdeas()
+        let page = 1;
+        this.ideasService.getIdeas(page)
             .subscribe(
                 (ideas) => {
-                    ideas.sort((idea1, idea2) => {
-                       return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                    });
-
+                    this.sortIdeas(ideas);
                     this.rawIdeas = ideas;
                     this.ideas = this.rawIdeas.slice();
                 },
@@ -61,11 +57,13 @@ export class DashboardComponent {
     }
 
     getAverageScore(idea) {
-        return (idea.impact + idea.ease + idea.confidence) / 3;
+        return (parseInt(idea.impact) + parseInt(idea.ease) + parseInt(idea.confidence)) / 3;
     }
 
-    sortIdea() {
-        
+    sortIdeas(ideas) {
+        ideas.sort((idea1, idea2) => {
+            return this.getAverageScore(idea2) - this.getAverageScore(idea1);
+        });
     }
 
     selectIdea(idea) {
@@ -94,20 +92,17 @@ export class DashboardComponent {
     }
 
     saveIdea(e) {
-       this.selectedIdea = e;
        let alreadyExists = this.selectedIdea._id == 0 ? false : true;
-
-        alreadyExists ? this.updateIdea() : this.createIdea();
+        alreadyExists ? this.updateIdea(e) : this.createIdea(e);
     }
 
-    createIdea() {
+    createIdea(idea) {
+        this.selectedIdea = idea;
         this.ideasService.createIdea(this.selectedIdea)
             .subscribe(
                 idea => {
-                   this.rawIdeas.unshift(idea);
-                   this.rawIdeas.sort((idea1, idea2) => {
-                       return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                   });
+                   this.rawIdeas.push(idea);
+                   this.sortIdeas(this.rawIdeas);
                    this.ideas = this.rawIdeas.slice();
                    this.selectedIdea = idea;
                    this.viewMode = 'preview';
@@ -118,19 +113,16 @@ export class DashboardComponent {
             )
     }
 
-    updateIdea() {
+    updateIdea(idea) {
+        this.selectedIdea = idea;
         this.ideasService.updateIdea(this.selectedIdea)
             .subscribe(
                 stat => {
-                   console.log(stat);
                    this.rawIdeas.forEach((idea, index) => {
                      if(this.selectedIdea._id === idea._id) {
                         this.rawIdeas[index] = this.selectedIdea;
-                        this.rawIdeas.sort((idea1, idea2) => {
-                            return this.getAverageScore(idea2) - this.getAverageScore(idea1);
-                        });
+                        this.sortIdeas(this.rawIdeas);
                         this.ideas = this.rawIdeas.slice();
-                        this.viewMode = 'preview';
                      }
                    });
                 },
@@ -141,7 +133,8 @@ export class DashboardComponent {
     }
 
     deleteIdea(idea) {
-      this.ideasService.deleteIdea(idea)
+        if (confirm('Are you sure you want to delete this idea')) {
+            this.ideasService.deleteIdea(idea)
             .subscribe(
                 stat => {
                    console.log(stat);
@@ -157,9 +150,6 @@ export class DashboardComponent {
                    alert(error);
                 }
             )
-    }
-
-    logout() {
-        this.authService.logout();
+        }
     }
 }

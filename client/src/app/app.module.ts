@@ -12,6 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { IdeaViewComponent } from './components/idea-view/idea-view.component';
 import { IdeaEditComponent } from './components/idea-edit/idea-edit.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { HeaderComponent } from './components/header/header.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,9 +21,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { IdeasService } from './services/ideas.service';
+import { UserService } from './services/user.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { HttpService } from './services/http.service';
 import { PreloaderService } from './services/preloader.service';
+
+
+// Import Angular plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -31,13 +38,16 @@ import { PreloaderService } from './services/preloader.service';
     DashboardComponent,
     IdeaViewComponent,
     IdeaEditComponent,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [    
     AuthGuard,
@@ -45,7 +55,8 @@ import { PreloaderService } from './services/preloader.service';
     IdeasService,
     LocalStorageService,
     HttpService,
-    PreloaderService
+    PreloaderService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

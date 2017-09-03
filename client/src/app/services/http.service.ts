@@ -53,7 +53,6 @@ export class HttpService {
     }
 
     private retryRequest(url, options, observer) {
-        console.log(options);
         options.headers = new Headers({
             'Content-Type': 'application/json',
             'x-access-token': this.localStorageService.get('jwt')

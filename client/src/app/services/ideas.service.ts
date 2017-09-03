@@ -8,8 +8,8 @@ export class IdeasService {
 
     path = '/ideas';
 
-    getIdeas() {
-        return this.httpService.get(this.path, { auth: true });
+    getIdeas(page: number) {
+        return this.httpService.get(`${this.path}?page=${page}`, { auth: true });
     }
 
     createIdea(idea) {

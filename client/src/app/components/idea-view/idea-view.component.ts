@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'idea-view',
@@ -7,10 +7,18 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 })
 export class IdeaViewComponent {
   @Input() idea;
+  @Output() edit = new EventEmitter();
+  averageScore;
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes['idea'].previousValue !== changes['idea'].currentValue) {
-      console.log('Input updated');
+      let idea = changes['idea'].currentValue;
+      this.averageScore = (parseInt(idea.impact) + parseInt(idea.ease) + parseInt(idea.confidence)) / 3;
+      this.averageScore  = parseFloat(this.averageScore ).toFixed(2);
     }
+  }
+
+  onClick() {
+      this.edit.emit();
   }
 }

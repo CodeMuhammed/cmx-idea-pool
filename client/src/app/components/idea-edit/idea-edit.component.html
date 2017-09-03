@@ -1,9 +1,6 @@
 <div class="edit-component">
-    <div class="form-group">
-        <textarea 
-            class="form-control edit-content" 
-            [(ngModel)]="editableIdea.content"
-            [ngModelOptions]="{standalone: true}"></textarea>
+    <div class="form-group" >
+        <div  [froalaEditor]="editorOptions" [(froalaModel)]="editableIdea.content"></div>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Impact Score</label>
@@ -44,8 +41,6 @@
             data-popup-enabled="true" 
             [(ngModel)]="editableIdea.confidence" />
     </div>
-
     <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="saveEdit()">Save</button>
-    
+    <button type="button" class="btn btn-primary" (click)="saveEdit()" [disabled]="editableIdea.content.length == 0">Save</button>
 </div>
