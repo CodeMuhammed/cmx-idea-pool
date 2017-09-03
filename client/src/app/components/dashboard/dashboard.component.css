@@ -91,3 +91,14 @@
     cursor: pointer;
     margin-top: 100px;
 }
+
+.pagination {
+    padding: .1em .2em;
+    background-color: #FFF;
+    margin-bottom: .3em;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}

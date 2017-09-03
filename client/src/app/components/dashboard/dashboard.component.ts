@@ -41,8 +41,8 @@ export class DashboardComponent {
 
     selectedIdea = this.defaultIdea;
 
-    ngOnInit() {
-        let page = 1;
+    loadIdeas(page) {
+        console.log(page);
         this.ideasService.getIdeas(page)
             .subscribe(
                 (ideas) => {

@@ -13,6 +13,7 @@ import { IdeaViewComponent } from './components/idea-view/idea-view.component';
 import { IdeaEditComponent } from './components/idea-edit/idea-edit.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HeaderComponent } from './components/header/header.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -38,7 +39,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     IdeaViewComponent,
     IdeaEditComponent,
     LoaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

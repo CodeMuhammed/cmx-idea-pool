@@ -2,9 +2,9 @@
 <loader></loader>
 <div class="container">
   <div class="row">
-    <div class="col col-sm-4 side-bar">
+    <div class="col col-sm-4 side-bar sticky-top">
         <div class="idea-summary-container">
-          <div class="summary-header sticky-top">
+          <div class="summary-header">
               <input 
                   class="form-control" 
                   placeholder="Search ideas"  
@@ -25,6 +25,7 @@
               </div>
             </span>
           </div>
+          <pagination [ideas]="ideas" (onPaginate)="loadIdeas($event)"></pagination>
         </div>
     </div>
     <div class="col-sm-8 main-display">
