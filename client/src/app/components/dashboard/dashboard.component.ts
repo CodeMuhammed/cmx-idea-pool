@@ -18,7 +18,7 @@ export class DashboardComponent {
     };
     newIdeaTemplate = {
         '_id': 0,
-        'content': 'Enter your new idea here',
+        'content': '',
         'impact': 1,
         'ease': 1,
         'confidence': 1

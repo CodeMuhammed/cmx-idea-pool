@@ -18,6 +18,8 @@ export class IdeaEditComponent {
     mySubject = new Subject();
     differ: any;
 
+    editorOptions = { placeholderText: 'Edit Your Idea Here!', charCounterCount: false, heightMin: 200};
+
     constructor(private differs: KeyValueDiffers) {
       this.differ = differs.find({}).create(null);
     }
@@ -40,7 +42,9 @@ export class IdeaEditComponent {
         var changes = this.differ.diff(this.editableIdea);
 
         if(changes) {
-           this.mySubject.next(this.editableIdea);
+           if(this.editableIdea._id != 0) {
+             this.mySubject.next(this.editableIdea);
+           }
         } 
     }
 

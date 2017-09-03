@@ -5,3 +5,11 @@
 .edit-content {
     height: 25em;
 }
+
+.fr-wrapper {
+    height: 20em !important;
+}
+
+div#froala-editor {
+     height: 20em !important;
+}
