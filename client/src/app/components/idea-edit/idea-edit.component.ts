@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges,Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges,Output, EventEmitter, DoCheck, KeyValueDiffers } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 
@@ -16,6 +16,11 @@ export class IdeaEditComponent {
     editableIdea;
     test = 3;
     mySubject = new Subject();
+    differ: any;
+
+    constructor(private differs: KeyValueDiffers) {
+      this.differ = differs.find({}).create(null);
+    }
 
     ngOnInit() {
       this.mySubject
@@ -31,17 +36,19 @@ export class IdeaEditComponent {
       }
     }
 
+    ngDoCheck() {
+        var changes = this.differ.diff(this.editableIdea);
+
+        if(changes) {
+           this.mySubject.next(this.editableIdea);
+        } 
+    }
+
     cancelEdit() {
         this.cancel.emit();
     }
 
     saveEdit() {
         this.save.emit(Object.assign({}, this.editableIdea));
-    }
-
-    onIdeaChanged() {
-       if(this.editableIdea._id != 0) {
-          this.mySubject.next(this.editableIdea); 
-       }
     }
 }

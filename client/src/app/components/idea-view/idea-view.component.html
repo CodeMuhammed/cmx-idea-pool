@@ -1,7 +1,7 @@
 <div class="view-component">
     <div class="form-group">
-        <div class="form-control view-content" (click)="onClick()">
-            {{idea.content}}
+        <div class="form-control view-content" (dblclick)="onClick()">
+           <div [froalaView]="idea.content"></div>
         </div>
     </div>
 
@@ -13,7 +13,7 @@
             {{idea.impact}} / 10
             </div>
         </div>
-    </div>
+    </div> 
 
     <div class="form-group">
         <label for="exampleTextarea">Ease Score</label>
@@ -23,7 +23,7 @@
             {{idea.ease}} / 10
             </div>
         </div>
-    </div>
+    </div> 
 
     <div class="form-group">
         <label for="exampleTextarea">Confidence Score</label>

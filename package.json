@@ -16,7 +16,9 @@
   "author": "Muhammed Ali",
   "license": "ISC",
   "dependencies": {
+    "@angular/forms": "^4.4.0-RC.0",
     "angular-cli": "^1.0.0-beta.28.3",
+    "angular-froala-wysiwyg": "^1.0.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",

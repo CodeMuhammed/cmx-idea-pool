@@ -136,7 +136,8 @@ export class DashboardComponent {
     }
 
     deleteIdea(idea) {
-      this.ideasService.deleteIdea(idea)
+        if (confirm('Are you sure you want to delete this idea')) {
+            this.ideasService.deleteIdea(idea)
             .subscribe(
                 stat => {
                    console.log(stat);
@@ -152,6 +153,7 @@ export class DashboardComponent {
                    alert(error);
                 }
             )
+        }
     }
 
     logout() {

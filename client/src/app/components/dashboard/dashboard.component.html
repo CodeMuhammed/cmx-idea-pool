@@ -22,7 +22,7 @@
               <div class="idea-summary-body">
                 <span class="idea" *ngFor="let idea of ideas" [ngClass]="selectedIdea._id == idea._id? 'active-idea' : ''">
                   <span class="idea-content" (click)="selectIdea(idea)">
-                    {{idea.content.substr(0, 50) + ' ...'}}
+                    <div [froalaView]="idea.content.substr(0, 50)"></div> ...
                   </span>
                   <div class="options col-xs-12">
                       <span class="option" (click)="editIdea(idea)">Edit</span>

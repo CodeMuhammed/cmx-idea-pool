@@ -23,6 +23,10 @@ import { LocalStorageService } from './services/local-storage.service';
 import { HttpService } from './services/http.service';
 import { PreloaderService } from './services/preloader.service';
 
+
+// Import Angular plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,8 @@ import { PreloaderService } from './services/preloader.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [    
     AuthGuard,
