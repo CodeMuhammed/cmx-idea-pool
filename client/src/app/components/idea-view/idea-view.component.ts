@@ -14,6 +14,7 @@ export class IdeaViewComponent {
     if(changes['idea'].previousValue !== changes['idea'].currentValue) {
       let idea = changes['idea'].currentValue;
       this.averageScore = (parseInt(idea.impact) + parseInt(idea.ease) + parseInt(idea.confidence)) / 3;
+      this.averageScore  = parseFloat(this.averageScore ).toFixed(2);
     }
   }
 
