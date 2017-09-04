@@ -9,6 +9,7 @@
     border-right: 1px solid #ccc;
     text-align: center;
     border-radius: 0px;
+    display: block;
 }
 
 .page {
