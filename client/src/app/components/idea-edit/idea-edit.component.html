@@ -3,7 +3,7 @@
         <div  [froalaEditor]="editorOptions" [(froalaModel)]="editableIdea.content"></div>
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Impact Score</label>
+        <label for="exampleInputEmail1">Impact Score {{editableIdea.impact}}</label>
         <input 
             class="form-control"
             type="range"
@@ -16,7 +16,7 @@
             [(ngModel)]="editableIdea.impact" />
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Ease Score</label>
+        <label for="exampleInputEmail1">Ease Score {{editableIdea.ease}}</label>
         <input 
             class="form-control"
             type="range"
@@ -29,7 +29,7 @@
             [(ngModel)]="editableIdea.ease" />
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Confidence Score</label>
+        <label for="exampleInputEmail1">Confidence Score {{editableIdea.confidence}}</label>
         <input 
             class="form-control"
             type="range"
